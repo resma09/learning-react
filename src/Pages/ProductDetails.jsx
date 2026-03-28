@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProductsById } from "../data/products";
+import { getProductById } from "../data/products";
+import { useCart } from "../context/CartContext";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -21,6 +22,13 @@ export default function ProductDetails() {
   if (!product) {
     return <h1>Loading ....</h1>;
   }
+
+  const { addToCart, cartItems } = useCart();
+  const productInCart = cartItems.find((item) => item.id === product.id);
+
+  const productQuantityLabel = productInCart
+    ? `(${productInCart.quantity})`
+    : " ";
 
   return (
     <div className="flex flex-col min-h-[50vh] pt-8 sm:pt-12 px-6 md:px-12">
@@ -45,8 +53,11 @@ export default function ProductDetails() {
           <p className="text-sm text-slate-500 leading-relaxed">
             {product.description}
           </p>
-          <button className="w-full rounded bg-indigo-600 text-white text-sm font-semibold py-2.5 hover:bg-indigo-700 active:scale-95 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
-            Add to Cart
+          <button
+            onClick={() => addToCart(product.id)}
+            className="w-full rounded bg-indigo-600 text-white text-sm font-semibold py-2.5 hover:bg-indigo-700 active:scale-95 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+          >
+            Add to Cart {productQuantityLabel}
           </button>
 
           {/* <p className="text-sm text-slate-500 leading-relaxed">

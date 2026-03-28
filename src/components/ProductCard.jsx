@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
+  const { addToCart, cartItems } = useCart();
+  const productInCart = cartItems.find((item) => item.id === product.id);
+
+  const productQuantityLabel = productInCart
+    ? `(${productInCart.quantity})`
+    : " ";
+
   return (
     <div className="rounded-lg border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col">
       {/* IMAGE */}
@@ -31,8 +39,11 @@ export default function ProductCard({ product }) {
           >
             View Details
           </Link>
-          <button className="px-4 py-2 rounded bg-indigo-600 text-white text-sm hover:bg-indigo-700 active:scale-95 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
-            Add to Cart
+          <button
+            onClick={() => addToCart(product.id)}
+            className="px-4 py-2 rounded bg-indigo-600 text-white text-sm hover:bg-indigo-700 active:scale-95 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+          >
+            Add to Cart {productQuantityLabel}
           </button>
         </div>
       </div>

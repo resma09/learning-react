@@ -69,6 +69,6 @@ export function getProducts() {
   return products;
 }
 
-export function getProductsById(id) {
+export function getProductById(id) {
   return products.find((p) => p.id === Number(id));
 }

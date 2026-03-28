@@ -3,6 +3,7 @@ import Home from "./Pages/Home";
 import Auth from "./Pages/Auth";
 import Checkout from "./Pages/Checkout";
 import Navbar from "./components/Navbar";
+import ProductDetails from "./Pages/ProductDetails";
 
 import "./App.css";
 import AuthProvider from "./context/AuthContext";
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
           </Routes>
         </main>
       </div>

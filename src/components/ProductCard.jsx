@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
         {/* FOOTER */}
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100 gap-4">
           <Link
-            to={`/product/${product.id}`}
+            to={`/products/${product.id}`}
             className="text-sm font-medium text-indigo-600 hover:text-indigo-800 hover:underline transition-colors duration-150"
           >
             View Details

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user, logOut } = useAuth();
   return (
     <nav
       className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white"
@@ -29,20 +31,35 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-3">
-          <Link
-            to="/auth"
-            className="inline-flex items-center justify-center rounded-md bg-slate-700 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700 sm:px-4 sm:py-2 sm:text-sm"
-          >
-            Login
-          </Link>
-          <Link
-            to="/auth"
-            className="inline-flex items-center justify-center rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 sm:px-4 sm:py-2 sm:text-sm"
-          >
-            Signup
-          </Link>
-        </div>
+        {!user ? (
+          <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-3">
+            <Link
+              to="/auth"
+              className="inline-flex items-center justify-center rounded-md bg-slate-700 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700 sm:px-4 sm:py-2 sm:text-sm"
+            >
+              Login
+            </Link>
+            <Link
+              to="/auth"
+              className="inline-flex items-center justify-center rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 sm:px-4 sm:py-2 sm:text-sm"
+            >
+              Signup
+            </Link>
+          </div>
+        ) : (
+          <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-3">
+            <span className="text-xs text-slate-700">
+              {" "}
+              Hello, {user.email}{" "}
+            </span>
+            <button
+              onClick={() => logOut()}
+              className="rounded-xl border border-slate-200 text-sm font-semibold py-2.5 text-slate-700 hover:bg-slate-100 transition px-4"
+            >
+              Log out
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );
